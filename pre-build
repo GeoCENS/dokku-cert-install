@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eo pipefail; [[ $DOKKU_TRACE ]] && set -x
+APP="$1"; IMAGE="dokku/$APP"
+SOURCE_CERTS_PATH="$HOME/$APP/certs"
+
+if [[ -d "$SOURCE_CERTS_PATH" ]]; then
+  echo "-----> Adding certificates from $SOURCE_CERTS_PATH to build environment ..."
+  id=$(cat "$SOURCE_CERTS_PATH/"*.crt | docker run -i -a stdin $IMAGE /bin/bash -c "cat >> /usr/local/share/ca-certificates/custom.crt && update-ca-certificates")
+  test $(docker wait $id) -eq 0
+  docker commit $id $IMAGE > /dev/null
+fi
