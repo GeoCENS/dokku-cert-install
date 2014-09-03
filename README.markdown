@@ -26,7 +26,7 @@ Start by setting up package-proxy with Docker:
 
     $ sudo docker run --tty --sig-proxy=false --interactive --rm --publish 3142:3142 --name package-proxy lox24/package-proxy:latest
 
-Use Ctrl-C to detach once it is running. Get the IP of the host running the package-proxy container, or the container's IP if it is running on the same Docker host as Dokku.
+Use Ctrl-P, Ctrl-Q, then Ctrl-C to detach once it is running. Get the IP of the host running the package-proxy container, or the container's IP if it is running on the same Docker host as Dokku.
 
 Next get a copy of the package-proxy public key:
 
